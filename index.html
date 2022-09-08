@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI BASED LAWYER</title>
+    <style>
+      body {
+        background-image: url("lawpic.jpg");
+        background-position: top;
+        background-size: cover;
+        opacity: 1;
+        overflow-y: scroll;
+        /* Show vertical scrollbar */
+        overflow-x: scroll;
+        /* Show horizontal scrollbar */
+      }
+
+      h1 {
+        font-style: italic;
+        font-size: 80px;
+        color: #fff;
+        animation: glow 1s;
+        text-align: center;
+      }
+
+      h2 {
+        font-style: italic;
+        font-size: xx-large;
+        color: darkkhaki;
+      }
+
+      p {
+        color: #fff;
+        text-align: center;
+        font-size: x-large;
+        text-decoration: underline;
+      }
+
+      h3 {
+        font-style: italic;
+        font-size: x-large;
+        color: whitesmoke;
+        text-align: center;
+      }
+
+      p2 {
+        color: aquamarine;
+        text-align: center;
+        font-size: medium;
+      }
+
+      .a1 {
+        background-image: none;
+        color: azure;
+        font-style: italic;
+        font-size: xx-large;
+        border: 2px black;
+        padding: 10px 25px;
+        text-align: center;
+        display: list-item;
+        text-decoration: none;
+      }
+
+      .a1:hover {
+        color: hotpink;
+        text-decoration: none;
+      }
+
+      #a2 {
+        background-image: none;
+        color: cyan;
+        font-style: italic;
+        font-size: xx-large;
+        border: 2px black;
+        padding: 10px 25px;
+        text-align: center;
+        display: list-item;
+        text-decoration: none;
+      }
+
+      #a2:hover {
+        color: hotpink;
+        text-decoration: none;
+      }
+
+      #a3 {
+        background-image: none;
+        color: cyan;
+        font-style: italic;
+        font-size: xx-large;
+        border: 2px black;
+        padding: 10px 25px;
+        text-align: center;
+        display: list-item;
+        text-decoration: none;
+      }
+
+      #a3:hover {
+        color: hotpink;
+        text-decoration: none;
+      }
+
+      .topnav {
+        overflow: hidden;
+        background-color: lavenderblush;
+      }
+
+      .topnav a {
+        float: left;
+        display: block;
+        color: black;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 24px;
+      }
+
+      .topnav a:hover {
+        background-color: white;
+        color: black;
+      }
+
+      .topnav a.active {
+        background-color: lightskyblue;
+        color: white;
+      }
+
+      .topnav .login-container {
+        float: right;
+      }
+
+      .topnav input[type="text"] {
+        padding: 6px;
+        margin-top: 8px;
+        font-size: 17px;
+        border: none;
+        width: 120px;
+      }
+
+      .topnav .login-container button {
+        float: right;
+        padding: 6px 10px;
+        margin-top: 8px;
+        margin-right: 16px;
+        background-color: lightslategrey;
+        color: white;
+        font-size: 17px;
+        border: none;
+        cursor: pointer;
+      }
+
+      .topnav .login-container button:hover {
+        background-color: green;
+      }
+
+      @media screen and (max-width: 800px) {
+        .topnav .login-container {
+          float: none;
+          display: none;
+        }
+
+        .topnav a,
+        .topnav input[type="text"],
+        .topnav .login-container button {
+          float: none;
+          display: block;
+          text-align: left;
+          width: 100%;
+          margin: 0;
+          padding: 14px;
+        }
+
+        .topnav input[type="text"] {
+          border: 1px solid grey;
+        }
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      /* Add padding to containers */
+      .container {
+        padding: 16px;
+        color: white;
+        font-size: x-large;
+      }
+
+      /* Full-width input fields */
+      input[type="text"],
+      input[type="password"] {
+        width: 100%;
+        padding: 15px;
+        margin: 5px 0 22px 0;
+        display: inline-block;
+        border: none;
+        background: whitesmoke;
+      }
+
+      /* Overwrite default styles of hr */
+      hr {
+        border: 1px solid whitesmoke;
+        margin-bottom: 25px;
+      }
+
+      /* Set a style for the submit/register button */
+      .registerbtn {
+        background-color: green;
+        color: white;
+        font-size: larger;
+        padding: 16px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        opacity: 1;
+      }
+
+      .registerbtn:hover {
+        color: aqua;
+      }
+
+      /* Add a text color to links */
+      a {
+        color: oldlace;
+      }
+
+      /* Set a background color and center the text of the "sign up" section */
+      .signin {
+        text-align: center;
+        font-size: x-large;
+      }
+
+      /* Style the header: fixed position (always stay at the top) */
+      .header {
+        position: fixed;
+        top: 0;
+        z-index: 1;
+        width: 100%;
+        background-color: whitesmoke;
+      }
+
+      /* The progress container (grey background) */
+      .progress-container {
+        width: 100%;
+        height: 8px;
+        background: grey;
+      }
+
+      /* The progress bar (scroll indicator) */
+      .progress-bar {
+        height: 8px;
+        background: black;
+        width: 0%;
+      }
+
+      .column {
+        float: left;
+        width: 50%;
+        margin-bottom: 16px;
+        padding: 0 8px;
+        background-color: #fff;
+      }
+
+      @media screen and (max-width: 650px) {
+        .column {
+          width: 100%;
+          display: grid;
+        }
+      }
+
+      .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      }
+
+      .container {
+        padding: 0 16px;
+      }
+
+      .container::after,
+      .row::after {
+        content: "";
+        clear: both;
+        display: table;
+      }
+
+      .title {
+        color: black;
+        text-align: center;
+        font-size: x-large;
+        text-decoration: none;
+      }
+
+      .heading {
+        color: black;
+        text-align: center;
+        font-size: xx-large;
+      }
+
+      .column1 {
+        float: right;
+        width: 50%;
+        margin-bottom: 16px;
+        padding: 0 8px;
+        background-color: #fff;
+      }
+
+      @media screen and (max-width: 650px) {
+        .column {
+          width: 100%;
+          display: grid;
+        }
+      }
+
+      .card1 {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      }
+
+      .container1 {
+        padding: 0 16px;
+      }
+
+      .container1::after,
+      .row::after {
+        content: "";
+        clear: both;
+        display: table;
+      }
+
+      .title1 {
+        color: black;
+        text-align: center;
+        font-size: x-large;
+        text-decoration: none;
+      }
+
+      .heading1 {
+        color: black;
+        text-align: center;
+        font-size: large;
+      }
+
+      .column1 {
+        float: inline-start;
+        width: 50%;
+        margin-bottom: 16px;
+        padding: 0 8px;
+        background-color: #fff;
+      }
+
+      @media screen and (max-width: 650px) {
+        .column {
+          width: 100%;
+          display: grid;
+        }
+      }
+
+      .dropbtn {
+        background-color: #04aa6d;
+        color: white;
+        padding: 16px;
+        font-size: 20px;
+        border: none;
+      }
+
+      .dropdown {
+        position: relative;
+        display: inline-block;
+      }
+
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: white;
+        font-size: x-large;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+      }
+
+      .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+      }
+
+      .dropdown-content a:hover {
+        background-color: whitesmoke;
+      }
+
+      .dropdown:hover .dropdown-content {
+        display: block;
+      }
+
+      .dropdown:hover .dropbtn {
+        background-color: green;
+      }
+      /* Button used to open the chat form - fixed at the bottom of the page */
+      .open-button {
+        background-color: #555;
+        color: white;
+        padding: 16px 20px;
+        border: none;
+        cursor: pointer;
+        font-size: x-large;
+        opacity: 1;
+        position: fixed;
+        bottom: 23px;
+        right: 28px;
+        width: 280px;
+      }
+
+      /* The popup chat - hidden by default */
+      .chat-popup {
+        display: none;
+        position: fixed;
+        bottom: 0;
+        right: 15px;
+        border: 3px solid whitesmoke;
+        z-index: 9;
+      }
+
+      /* Add styles to the form container */
+      .form-container {
+        max-width: 300px;
+        padding: 10px;
+        background-color: lightgreen;
+      }
+
+      /* Full-width textarea */
+      .form-container textarea {
+        width: 100%;
+        padding: 15px;
+        margin: 5px 0 22px 0;
+        border: none;
+        background: whitesmoke;
+        resize: none;
+        min-height: 200px;
+      }
+
+      /* When the textarea gets focus, do something */
+      .form-container textarea:focus {
+        background-color: white;
+        outline: none;
+      }
+
+      /* Set a style for the submit/send button */
+      .form-container .btn {
+        background-color: green;
+        color: white;
+        padding: 16px 20px;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        margin-bottom: 10px;
+        opacity: 0.8;
+      }
+
+      /* Add a red background color to the cancel button */
+      .form-container .cancel {
+        background-color: red;
+      }
+
+      /* Add some hover effects to buttons */
+      .form-container .btn:hover,
+      .open-button:hover {
+        opacity: 1;
+        color: aqua;
+      }
+
+      /* Add a green text color and a checkmark when the requirements are right */
+      .valid {
+        color: green;
+      }
+
+      .valid:before {
+        position: relative;
+        left: -35px;
+        content: "✔";
+      }
+
+      /* Add a red text color and an "x" when the requirements are wrong */
+      .invalid {
+        color: red;
+      }
+
+      .invalid:before {
+        position: relative;
+        left: -35px;
+        content: "✖";
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="header">
+      <div class="progress-container">
+        <div class="progress-bar" id="myBar"></div>
+      </div>
+    </div>
+
+    <h1>INSAF LAWYER FORUM &copy;</h1>
+    <div class="topnav">
+      <a class="active" href="http://127.0.0.1:5500/index.html">Home</a>
+      <a href="news.html" target="_blank">News</a>
+      <a href="address.html" target="_blank">Contact</a>
+      <a href="about.html" target="_blank">About</a>
+      <div class="login-container">
+        <form action="/action_page.php">
+          <input type="text" placeholder="Username" name="username" />
+          <input
+            type="text"
+            placeholder="Password"
+            minlength="8"
+            name="psw"
+            required
+          />
+          <button type="submit">Login</button>
+        </form>
+      </div>
+    </div>
+    <h2>Who are we ?</h2>
+    <p>
+      We are AI-based lawyers that can process your textual queries and answer
+      them accordingly with citations to the PPC (Pakistan Penal Code) and
+      Constitution.
+    </p>
+
+    <div class="dropdown">
+      <button class="dropbtn">Criminal Law</button>
+      <div class="dropdown-content">
+        <a
+          href="https://www.pakistani.org/pakistan/legislation/1860/actXLVof1860.html"
+          target="_blank"
+          >Aidder and Abetter of Crime</a
+        >
+        <a
+          href="https://www.pakistani.org/pakistan/legislation/1860/actXLVof1860.html"
+          target="_blank"
+          >Kidnapping</a
+        >
+        <a
+          href="https://www.pakistani.org/pakistan/legislation/1860/actXLVof1860.html"
+          target="_blank"
+          >Extortion</a
+        >
+        <a
+          href="https://www.pakistani.org/pakistan/legislation/1860/actXLVof1860.html"
+          target="_blank"
+          >Murder</a
+        >
+        <a
+          href="https://www.pakistani.org/pakistan/legislation/1860/actXLVof1860.html"
+          target="_blank"
+          >Rape</a
+        >
+        <a
+          href="https://www.pakistani.org/pakistan/legislation/1860/actXLVof1860.html"
+          target="_blank"
+          >Public Violence</a
+        >
+      </div>
+    </div>
+
+    <div class="dropdown">
+      <button class="dropbtn">Political Dispute</button>
+      <div class="dropdown-content">
+        <a
+          href="https://www.pakistani.org/pakistan/constitution/part8.ch2.html"
+          target="_blank"
+          >Election Dispute</a
+        >
+        <a
+          href="https://www.pakistani.org/pakistan/constitution/part8.ch2.html"
+          target="_blank"
+          >Political Legislation</a
+        >
+      </div>
+    </div>
+
+    <div class="dropdown">
+      <button class="dropbtn">Fundamental Human Rights</button>
+      <div class="dropdown-content">
+        <a
+          href="https://pakistani.org/pakistan/constitution/part2.ch1.html"
+          target="_blank"
+          >Right to Speech</a
+        >
+        <a
+          href="https://pakistani.org/pakistan/constitution/part2.ch1.html"
+          target="_blank"
+          >Right to Association</a
+        >
+        <a
+          href="https://pakistani.org/pakistan/constitution/part2.ch1.html"
+          target="_blank"
+          >Right to Religion</a
+        >
+        <a
+          href="https://pakistani.org/pakistan/constitution/part2.ch1.html"
+          target="_blank"
+          >Right to Education</a
+        >
+        <a
+          href="https://pakistani.org/pakistan/constitution/part2.ch1.html"
+          target="_blank"
+          >Right to Equality</a
+        >
+        <a
+          href="https://pakistani.org/pakistan/constitution/part2.ch1.html"
+          target="_blank"
+          >Right to Constitution</a
+        >
+      </div>
+    </div>
+
+    <div class="dropdown">
+      <button class="dropbtn">Treason</button>
+      <div class="dropdown-content">
+        <a
+          href="https://pakistani.org/pakistan/constitution/part2.ch1.html"
+          target="_blank"
+          >Abrogating Constitution</a
+        >
+        <a
+          href="https://pakistani.org/pakistan/constitution/part2.ch1.html"
+          target="_blank"
+          >Association with other countries</a
+        >
+      </div>
+    </div>
+
+    <div class="dropdown">
+      <button class="dropbtn">Corporate Laws</button>
+      <div class="dropdown-content">
+        <a href="https://www.secp.gov.pk/laws/acts/" target="_blank"
+          >Money Laundering</a
+        >
+        <a href="https://www.secp.gov.pk/laws/acts/" target="_blank"
+          >Tax Evasion</a
+        >
+        <a href="https://www.secp.gov.pk/laws/acts/" target="_blank"
+          >Insider Trading</a
+        >
+        <a href="https://www.secp.gov.pk/laws/acts/" target="_blank"
+          >CopyRight Issue</a
+        >
+        <a href="https://www.secp.gov.pk/laws/acts/" target="_blank"
+          >Hoarding of Currency</a
+        >
+      </div>
+    </div>
+
+    <div class="dropdown">
+      <button class="dropbtn">Public</button>
+      <div class="dropdown-content">
+        <a
+          href="https://www.pakistani.org/pakistan/legislation/1860/actXLVof1860.html"
+          target="_blank"
+          >Public Indeceny</a
+        >
+        <a
+          href="https://www.pakistani.org/pakistan/legislation/1860/actXLVof1860.html"
+          target="_blank"
+          >Harassment</a
+        >
+      </div>
+    </div>
+
+    <div class="dropdown">
+      <button class="dropbtn">Provision of Justice</button>
+      <div class="dropdown-content">
+        <a
+          href="https://www.pakistani.org/pakistan/legislation/1860/actXLVof1860.html"
+          target="_blank"
+          >Provision of False Evidence</a
+        >
+        <a
+          href="https://www.pakistani.org/pakistan/legislation/1860/actXLVof1860.html"
+          target="_blank"
+        >
+          False Affidavits</a
+        >
+        <a
+          href="https://www.pakistani.org/pakistan/legislation/1860/actXLVof1860.html"
+          target="_blank"
+        >
+          Contempt of Court</a
+        >
+      </div>
+    </div>
+
+    <div class="dropdown">
+      <button class="dropbtn">Minorities Issues</button>
+      <div class="dropdown-content">
+        <a
+          href="https://www.pakistani.org/pakistan/legislation/1860/actXLVof1860.html"
+          target="_blank"
+          >Disrespect of Religion</a
+        >
+        <a
+          href="https://www.pakistani.org/pakistan/legislation/1860/actXLVof1860.html"
+          target="_blank"
+          >Disrespect of Religious Places</a
+        >
+        <a
+          href="https://www.pakistani.org/pakistan/legislation/1860/actXLVof1860.html"
+          target="_blank"
+          >Hindrance in Religious Practices</a
+        >
+      </div>
+    </div>
+
+    <div class="dropdown">
+      <button class="dropbtn">Property Dispute</button>
+      <div class="dropdown-content">
+        <a
+          href="https://www.pakistani.org/pakistan/legislation/1860/actXLVof1860.html"
+          target="_blank"
+          >Property Registration</a
+        >
+        <a
+          href="https://www.pakistani.org/pakistan/legislation/1860/actXLVof1860.html"
+          target="_blank"
+          >Property Tax</a
+        >
+        <a
+          href="https://www.pakistani.org/pakistan/legislation/1860/actXLVof1860.html"
+          target="_blank"
+          >Building Safety</a
+        >
+        <a
+          href="https://www.pakistani.org/pakistan/legislation/1860/actXLVof1860.html"
+          target="_blank"
+          >Tenant Registration</a
+        >
+      </div>
+    </div>
+
+    <p>Please click the following button to view our Packages :</p>
+    <a href="packages.html" target="_blank" id="a2">Pricing</a>
+
+    <form action="action_page.php">
+      <div class="container">
+        <p>Please fill in this form to sign-up.</p>
+        <hr />
+
+        <label for="email"><b>Email</b></label>
+        <input
+          type="text"
+          placeholder="Enter Email"
+          name="email"
+          id="email"
+          required
+        />
+
+        <label for="psw"><b>Password</b></label>
+        <input
+          type="password"
+          placeholder="Enter Password"
+          minlength="8"
+          name="psw"
+          id="psw"
+          pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+          title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+          required
+        />
+        <div id="message">
+          <h3>Password must contain the following:</h3>
+          <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+          <p id="capital" class="invalid">
+            A <b>capital (uppercase)</b> letter
+          </p>
+          <p id="number" class="invalid">A <b>number</b></p>
+          <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+        </div>
+
+        <hr />
+
+        <p>
+          By creating an account you agree to our
+          <a href="termsregulations.html" target="_blank"
+            >Terms & Regulations.</a
+          >.
+        </p>
+
+        <button type="submit" class="registerbtn">Sign-Up</button>
+      </div>
+
+      <div class="container signin">
+        <p>
+          Already have an account?
+          <a href="#">
+            <br />
+            Sign in</a
+          >
+        </p>
+      </div>
+    </form>
+
+    <div class="column">
+      <div class="card">
+        <img
+          src="85327.png"
+          alt="Muhammad Ali Siddique, Founder of Insaf Lawyer Forum"
+          style="width: 100%"
+        />
+        <div class="container">
+          <h2 class="heading">Muhammad Ali Siddique</h2>
+          <p class="title">Message from the Founder</p>
+          <p class="title">
+            Hi Guys !! I Came up with the idea of Insaf Lawyer Forum 10 years
+            ago when I ran into some legal dispute and could not decide which
+            laywer to hire as I was not sure. Since then I've worked hard to
+            provide automated legal guidance so that a client is aware of the
+            legal battle he is getting into.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="column1">
+      <div class="card1">
+        <img
+          src="1162504.jpg"
+          alt="Amir Khan, Co-Founder of Insaf Lawyer Forum"
+          style="width: 100%"
+        />
+        <div class="container1">
+          <h2 class="heading">Amir Khan</h2>
+          <p class="title1">Message from the Co-Founder</p>
+          <p class="title1">
+            Hi Guys !! When Ali came up to me with the idea of Insaf Lawyer
+            Forum 10 years ago, I was excited and amazed that such a project was
+            left unvetured. We devised a plan to prvide legal assistance to you
+            and we are proud to say we're a big team now.So happy legal disputes
+            to y'all.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="anchor tags">
+      <a class="a1" href="" id="a1">Discord id : alisidd_00</a>
+      <a class="a1" href="mailto:malisiddiq0@gmail.com" target="_blank"
+        >Email : malisiddiq0@gmail.com</a
+      >
+      <a
+        class="a1"
+        href="https://www.pakistani.org/pakistan/legislation/1860/actXLVof1860.html"
+        target="_blank"
+      >
+        View Pakistan Penal Code</a
+      >
+      <a class="a1" href="newsletter.html" target="_blank"
+        >Subscribe to NewsLetter</a
+      >
+      <a class="a1" href="suggestion.html" target="_blank">Suggestion Form</a>
+
+      <a class="a1" href="faqs.html" target="_blank">FAQs</a>
+      <a class="a1" href="termsregulations.html" target="_blank"
+        >Terms and Regulations</a
+      >
+
+      <a class="a1" href="#">Jump to Top</a>
+    </div>
+    <button class="open-button" onclick="openForm()">Chat</button>
+
+    <div class="chat-popup" id="myForm">
+      <form action="/action_page.php" class="form-container">
+        <label for="msg"><b>Message</b></label>
+        <textarea placeholder="Type message.." name="msg" required></textarea>
+
+        <button type="submit" class="btn">Send</button>
+        <button type="button" class="btn cancel" onclick="closeForm()">
+          Close
+        </button>
+      </form>
+    </div>
+
+    <div class="bgimg">
+      <div class="topleft"></div>
+      <div class="middle">
+        <h1>COMING SOON</h1>
+        <hr />
+        <p id="demo" style="font-size: 30px"></p>
+      </div>
+      <div class="bottomleft">
+        <p>Services coming to other countries than Pakistan</p>
+      </div>
+    </div>
+    <script>
+      function openForm() {
+        document.getElementById("myForm").style.display = "block";
+      }
+
+      function closeForm() {
+        document.getElementById("myForm").style.display = "none";
+      }
+
+      // Set the date we're counting down to
+      var countDownDate = new Date("Dec 31, 2022 24:00:00").getTime();
+
+      // Update the count down every 1 second
+      var countdownfunction = setInterval(function () {
+        // Get todays date and time
+        var now = new Date().getTime();
+
+        // Find the distance between now an the count down date
+        var distance = countDownDate - now;
+
+        // Time calculations for days, hours, minutes and seconds
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor(
+          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Output the result in an element with id="demo"
+        document.getElementById("demo").innerHTML =
+          days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+
+        // If the count down is over, write some text
+        if (distance < 0) {
+          clearInterval(countdownfunction);
+          document.getElementById("demo").innerHTML = "EXPIRED";
+        }
+      }, 1000);
+      var myInput = document.getElementById("psw");
+      var letter = document.getElementById("letter");
+      var capital = document.getElementById("capital");
+      var number = document.getElementById("number");
+      var length = document.getElementById("length");
+
+      // When the user clicks on the password field, show the message box
+      myInput.onfocus = function () {
+        document.getElementById("message").style.display = "block";
+      };
+
+      // When the user clicks outside of the password field, hide the message box
+      myInput.onblur = function () {
+        document.getElementById("message").style.display = "none";
+      };
+
+      // When the user starts to type something inside the password field
+      myInput.onkeyup = function () {
+        // Validate lowercase letters
+        var lowerCaseLetters = /[a-z]/g;
+        if (myInput.value.match(lowerCaseLetters)) {
+          letter.classList.remove("invalid");
+          letter.classList.add("valid");
+        } else {
+          letter.classList.remove("valid");
+          letter.classList.add("invalid");
+        }
+
+        // Validate capital letters
+        var upperCaseLetters = /[A-Z]/g;
+        if (myInput.value.match(upperCaseLetters)) {
+          capital.classList.remove("invalid");
+          capital.classList.add("valid");
+        } else {
+          capital.classList.remove("valid");
+          capital.classList.add("invalid");
+        }
+
+        // Validate numbers
+        var numbers = /[0-9]/g;
+        if (myInput.value.match(numbers)) {
+          number.classList.remove("invalid");
+          number.classList.add("valid");
+        } else {
+          number.classList.remove("valid");
+          number.classList.add("invalid");
+        }
+
+        // Validate length
+        if (myInput.value.length >= 8) {
+          length.classList.remove("invalid");
+          length.classList.add("valid");
+        } else {
+          length.classList.remove("valid");
+          length.classList.add("invalid");
+        }
+      };
+    </script>
+  </body>
+</html>
